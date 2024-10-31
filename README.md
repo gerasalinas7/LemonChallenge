@@ -1,6 +1,6 @@
 # Aplicación de Microservicios para Transacciones, Operaciones y Usuarios
 
-## Resumen
+## 👀 Resumen
 
 Esta aplicación es un sistema basado en microservicios que gestiona transacciones de usuarios, operaciones y detalles de los mismos en una arquitectura distribuida. Cada microservicio está contenedorizado utilizando Docker y se comunica a través de RabbitMQ para gestionar la mensajería entre servicios.
 
@@ -23,7 +23,7 @@ Cada servicio tiene un rol específico dentro de la aplicación. Aquí tienes un
 3. ### UserService
 - Administra la información de los usuarios y proporciona endpoints para obtener el historial de transacciones y operaciones de cada usuario, consultando **TransactionService** y **OperationService**.
 
-## Requisitos Previos
+## 🚀 Requisitos Previos
 
 Asegúrate de tener instalados los siguientes componentes:
 
@@ -55,7 +55,7 @@ TRANSACTION_SERVICE_URL=http://transaction-service:3000
 OPERATION_SERVICE_URL=http://operation-service:3000
 ```
 
-## Ejecución de la Aplicación
+## 🤖 Ejecución de la Aplicación
 Para iniciar todos los servicios y RabbitMQ, utiliza Docker Compose:
 ```bash
 docker-compose up --build
@@ -68,7 +68,7 @@ Este comando construirá las imágenes e iniciará los contenedores. Accede a ca
 
 La consola de administración de RabbitMQ está disponible en `http://localhost:15672` (usuario: guest, contraseña: guest).
 
-## Endpoints
+## 💡 Endpoints
 
 ### TransactionService
 - **POST** `/api/transactions`: Crea una nueva transacción.
@@ -96,7 +96,7 @@ La consola de administración de RabbitMQ está disponible en `http://localhost:
 - **GET** `/api/users/{userId}/operations`: Obtiene las operaciones de un usuario específico.
 - **GET** `/api/users/health`: Verifica el estado del servicio.
 
-## Ejemplo de Solicitudes
+## 🤝 Ejemplo de Solicitudes
 
 Puedes probar los endpoints utilizando **curl** o **Postman**. Aquí tienes algunos ejemplos:
 
@@ -120,6 +120,6 @@ curl -X POST http://localhost:3002/api/operations -H "Content-Type: application/
 curl -X POST http://localhost:3003/api/users -H "Content-Type: application/json" -d '{"user_id": "12345", "name": "John Doe", "email": "john@example.com"}'
 ```
 
-## Notas
+## ✨ Notas
 **RabbitMQ** debe estar en funcionamiento antes de ejecutar los servicios que lo utilizan.
 Asegúrate de que las variables de entorno estén correctamente configuradas para la conexión a **MongoDB** y **RabbitMQ**.
