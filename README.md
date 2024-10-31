@@ -4,13 +4,13 @@
 
 Esta aplicación es un sistema basado en microservicios que gestiona transacciones de usuarios, operaciones y detalles de los mismos en una arquitectura distribuida. Cada microservicio está contenedorizado utilizando Docker y se comunica a través de RabbitMQ para gestionar la mensajería entre servicios.
 
-## Microservicios
+## 📍 Microservicios
 
 - **TransactionService**: Gestiona las transacciones (como intercambios, depósitos y retiros).
 - **OperationService**: Recibe eventos de transacciones y registra operaciones relacionadas para cada usuario.
 - **UserService**: Administra los detalles de los usuarios y recupera el historial de transacciones y operaciones de cada usuario.
 
-## Descripción de los Servicios
+## 💬 Descripción de los Servicios
 
 Cada servicio tiene un rol específico dentro de la aplicación. Aquí tienes un resumen:
 
@@ -23,7 +23,7 @@ Cada servicio tiene un rol específico dentro de la aplicación. Aquí tienes un
 3. ### UserService
 - Administra la información de los usuarios y proporciona endpoints para obtener el historial de transacciones y operaciones de cada usuario, consultando **TransactionService** y **OperationService**.
 
-## 🚀 Requisitos Previos
+## ✅ Requisitos Previos
 
 Asegúrate de tener instalados los siguientes componentes:
 
@@ -31,7 +31,7 @@ Asegúrate de tener instalados los siguientes componentes:
 - **Node.js** (si quieres probar localmente)
 - **MongoDB Atlas** para almacenar los datos
 
-## Configuración
+## 🚀 Configuración
 
 ### Variables de Entorno
 Cada microservicio requiere variables de entorno específicas para ejecutarse. Crea un archivo `.env` en la raíz de cada directorio de servicio con las siguientes variables:
