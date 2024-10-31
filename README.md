@@ -65,6 +65,7 @@ Este comando construirá las imágenes e iniciará los contenedores. Accede a ca
 - **TransactionService**: `http://localhost:3001`
 - **OperationService**: `http://localhost:3002`
 - **UserService**: `http://localhost:3003`
+
 La consola de administración de RabbitMQ está disponible en `http://localhost:15672` (usuario: guest, contraseña: guest).
 
 ## Endpoints
