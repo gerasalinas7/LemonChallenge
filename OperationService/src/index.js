@@ -1,11 +1,19 @@
+require('dotenv').config();
 const express = require('express');
+const connectDB = require('./config/db');
+const { connectRabbitMQ } = require('./services/messageQueue');
+const operationRoutes = require('./routes/operationRoutes');
+
 const app = express();
-const PORT = process.env.PORT || 3000;
+app.use(express.json());
 
-app.get('/health', (req, res) => {
-    res.status(200).json({ status: 'OK', service: process.env.SERVICE_NAME });
-});
+// Conexión a la base de datos
+connectDB();
 
-app.listen(PORT, () => {
-    console.log(`Service ${process.env.SERVICE_NAME} is running on port ${PORT}`);
-});
+// Conectar a RabbitMQ y empezar a escuchar eventos de transacciones
+connectRabbitMQ();
+
+app.use('/api/operations', operationRoutes);
+
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => console.log(`OperationService running on port ${PORT}`));

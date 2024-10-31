@@ -10,6 +10,10 @@ services:
       - PORT=3000
     ports:
       - "3001:3000"  
+    env_file:
+      - ./TransactionService/.env
+    depends_on:
+      - rabbitmq
 
   operation-service:
     build:
@@ -20,6 +24,10 @@ services:
       - PORT=3000
     ports:
       - "3002:3000"
+    env_file:
+      - ./OperationService/.env
+    depends_on:
+      - rabbitmq
 
   user-service:
     build:
@@ -30,3 +38,16 @@ services:
       - PORT=3000
     ports:
       - "3003:3000"
+    env_file:
+      - ./UserService/.env
+
+  rabbitmq:
+    image: "rabbitmq:3-management"
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    healthcheck:
+      test: ["CMD", "rabbitmqctl", "status"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
