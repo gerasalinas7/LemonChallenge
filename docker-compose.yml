@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+  transaction-service:
+    build:
+      context: ./TransactionService
+    container_name: transaction-service
+    environment:
+      - SERVICE_NAME=transaction-service
+      - PORT=3000
+    ports:
+      - "3001:3000"  
+
+  operation-service:
+    build:
+      context: ./OperationService
+    container_name: operation-service
+    environment:
+      - SERVICE_NAME=operation-service
+      - PORT=3000
+    ports:
+      - "3002:3000"
+
+  user-service:
+    build:
+      context: ./UserService
+    container_name: user-service
+    environment:
+      - SERVICE_NAME=user-service
+      - PORT=3000
+    ports:
+      - "3003:3000"
