@@ -1,8 +1,28 @@
 # Aplicación de Microservicios para Transacciones, Operaciones y Usuarios
 
-## 👀 Resumen
+## 👀 Solución
 
-Esta aplicación es un sistema basado en microservicios que gestiona transacciones de usuarios, operaciones y detalles de los mismos en una arquitectura distribuida. Cada microservicio está contenedorizado utilizando Docker y se comunica a través de RabbitMQ para gestionar la mensajería entre servicios.
+Este sistema está diseñado como una arquitectura de microservicios para lograr escalabilidad, velocidad y robustez. La aplicación separa las funcionalidades en diferentes servicios para manejar las transacciones, operaciones y usuarios de forma distribuida. A continuación, se explican las decisiones de diseño tomadas para cumplir con los requisitos de la consigna.
+
+### Decisiones de Diseño
+
+1. **Separación de Servicios**:  
+   La aplicación original almacenaba todas las transacciones y operaciones en una única base de datos dentro de un monolito. Este diseño limitaba la escalabilidad, velocidad de respuesta y robustez del sistema. Para abordar estos problemas, se decidió separar las funcionalidades en tres microservicios, cada uno responsable de una tarea específica y con su propia base de datos.
+
+   - **TransactionService** es responsable de gestionar las transacciones, como intercambios, depósitos, retiros y pagos de facturas. Cada vez que se crea una transacción, este servicio publica un mensaje en **RabbitMQ**. La mensajería desacoplada permite que **OperationService** reciba y procese las transacciones de manera independiente.
+   - **OperationService** escucha los eventos de transacciones en **RabbitMQ** y crea una operación correspondiente para cada transacción. Esto permite que **OperationService** almacene solo las operaciones relacionadas, lo cual ayuda a mantener una estructura de datos optimizada para las consultas.
+   - **UserService** maneja la información de los usuarios y sirve como el único punto de acceso para los clientes. A través de este servicio, los clientes pueden recuperar el historial de transacciones y operaciones de cada usuario, sin interactuar directamente con **TransactionService** ni **OperationService**.
+
+   Este enfoque de separación mejora la **escalabilidad** porque cada microservicio puede escalar de forma independiente. Además, al distribuir la carga de trabajo, el sistema se vuelve **más robusto**: si uno de los servicios falla, los otros pueden continuar funcionando. La **velocidad** también mejora, ya que cada servicio está optimizado para su tarea específica.
+
+2. **Filtro por Compañía o ID**:  
+   Uno de los requerimientos de la aplicación es que los usuarios puedan filtrar las operaciones de pago de facturas por `company` (como Edenor o Metrogas) y `account_id` (número de cuenta del servicio). Para cumplir con este requisito, diseñamos el sistema de almacenamiento y consulta de manera eficiente.
+
+   - **Almacenamiento de Datos en OperationService**: Cada operación de tipo `BILL_PAYMENT` almacena los campos `company` y `account_id`. Esto permite que las operaciones de pago de facturas se almacenen con la información necesaria para realizar búsquedas y filtrados eficientes.
+   - **Optimización de las Consultas**: En **OperationService**, se configuran índices en `user_id`, `company`, y `account_id` para acelerar las consultas y reducir el tiempo de respuesta cuando se aplica un filtro. Esto es especialmente útil cuando el sistema tiene que manejar grandes volúmenes de datos.
+   - **Endpoint de Filtrado en UserService**: **UserService** actúa como intermediario para que los clientes externos puedan obtener las operaciones de un usuario específico, filtradas opcionalmente por `company` y `account_id`. Este diseño encapsula la lógica de acceso en **UserService** y permite que **OperationService** maneje las consultas de manera interna.
+
+Este diseño escalable garantiza que la búsqueda de operaciones de pago de facturas sea rápida y eficiente, incluso con un gran volumen de datos. Además, mantiene el sistema flexible para futuras expansiones.
 
 ## 📍 Microservicios
 
