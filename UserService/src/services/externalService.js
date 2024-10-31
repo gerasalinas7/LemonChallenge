@@ -20,7 +20,22 @@ const getUserOperations = async (userId) => {
   }
 };
 
+const getFilteredUserOperations = async (userId, company, account_id) => {
+    try {
+      const params = { user_id: userId };
+      if (company) params.company = company;
+      if (account_id) params.account_id = account_id;
+  
+      const response = await axios.get(`${process.env.OPERATION_SERVICE_URL}/api/operations/filter`, { params });
+      return response.data;
+    } catch (error) {
+      console.error('Error fetching filtered operations:', error.message);
+      throw new Error('Could not retrieve filtered user operations');
+    }
+  };
+
 module.exports = {
   getUserTransactions,
   getUserOperations,
+  getFilteredUserOperations
 };

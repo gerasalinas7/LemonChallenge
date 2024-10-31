@@ -70,3 +70,15 @@ exports.getUserOperations = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.getFilteredOperations = async (req, res) => {
+    try {
+      const { userId } = req.params;
+      const { company, account_id } = req.query;
+  
+      const operations = await externalService.getFilteredUserOperations(userId, company, account_id);
+      res.status(200).json(operations);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  };

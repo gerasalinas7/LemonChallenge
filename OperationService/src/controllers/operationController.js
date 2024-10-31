@@ -32,6 +32,16 @@ exports.getOperationById = async (req, res) => {
   }
 };
 
+exports.getFilteredOperations = async (req, res) => {
+  try {
+    const { user_id, company, account_id } = req.query;
+    const operations = await operationService.getFilteredOperations(user_id, company, account_id);
+    res.status(200).json(operations);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 exports.updateOperation = async (req, res) => {
   try {
     const operation = await operationService.updateOperation(req.params.id, req.body);

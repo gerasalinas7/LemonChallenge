@@ -16,6 +16,12 @@ const createTransaction = async (transactionData) => {
     status: savedTransaction.status,
     additional_data: savedTransaction.additional_data,
   };
+  
+  if (savedTransaction.type === 'BILL_PAYMENT') {
+    message.company = savedTransaction.company;
+    message.account_id = savedTransaction.account_id;
+  }
+
   publishToQueue('transaction_created', message);
 
   return savedTransaction;

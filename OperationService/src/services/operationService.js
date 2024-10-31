@@ -13,15 +13,17 @@ const createOperationFromTransaction = async (transactionData) => {
     amount: transactionData.amount,
     currency: transactionData.currency,
     created_at: transactionData.created_at,
-    data: [
-      { name: 'status', value: transactionData.status },
-      ...Object.keys(transactionData.additional_data || {}).map(key => ({
-        name: key,
-        value: transactionData.additional_data[key],
+    data: transactionData.additional_data.map(item => ({
+        name: item.name,
+        value: String(item.value)
       })),
-    ],
   };
 
+  if (transactionData.type === 'BILL_PAYMENT') {
+    operationData.company = transactionData.company;
+    operationData.account_id = transactionData.account_id;
+  }
+  
   const operation = new Operation(operationData);
   return await operation.save();
 };
@@ -42,6 +44,14 @@ const deleteOperation = async (id) => {
   return await Operation.findByIdAndDelete(id);
 };
 
+const getFilteredOperations = async (userId, company, accountId) => {
+    const filter = { user_id: userId };
+    if (company) filter.company = company;
+    if (accountId) filter.account_id = accountId;
+  
+    return await Operation.find(filter);
+  };
+
 module.exports = {
   createOperation,
   createOperationFromTransaction,
@@ -49,4 +59,5 @@ module.exports = {
   getOperationById,
   updateOperation,
   deleteOperation,
+  getFilteredOperations
 };

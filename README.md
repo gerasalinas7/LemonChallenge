@@ -84,6 +84,7 @@ La consola de administración de RabbitMQ está disponible en `http://localhost:
 - **GET** `/api/operations/{id}`: Obtiene una operación por su ID.
 - **PUT** `/api/operations/{id}`: Actualiza una operación.
 - **DELETE** `/api/operations/{id}`: Elimina una operación.
+- **GET** `/api/operations/filter`: Obtiene las operaciones por user_id, company y account_id.
 - **GET** `/api/operations/health`: Verifica el estado del servicio.
 
 ### UserService
@@ -94,6 +95,7 @@ La consola de administración de RabbitMQ está disponible en `http://localhost:
 - **DELETE** `/api/users/{id}`: Elimina un usuario.
 - **GET** `/api/users/{userId}/transactions`: Obtiene las transacciones de un usuario específico.
 - **GET** `/api/users/{userId}/operations`: Obtiene las operaciones de un usuario específico.
+- **GET** `/api/users/{userId}/operations/filter`: Obtiene las operaciones de un usuario específico por company y account_id.
 - **GET** `/api/users/health`: Verifica el estado del servicio.
 
 ## 🤝 Ejemplo de Solicitudes
@@ -118,6 +120,11 @@ curl -X POST http://localhost:3002/api/operations -H "Content-Type: application/
 ### Crear un usuario (UserService)
 ```bash
 curl -X POST http://localhost:3003/api/users -H "Content-Type: application/json" -d '{"user_id": "12345", "name": "John Doe", "email": "john@example.com"}'
+```
+
+### Obtener las operaciones de un usuario específico con filtro por company y account_id
+```bash
+curl -X GET "http://localhost:3003/api/users/12345/operations/filter?company=Edenor&account_id=123456"
 ```
 
 ## ✨ Notas

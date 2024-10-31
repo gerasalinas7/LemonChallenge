@@ -3,6 +3,7 @@ const router = express.Router();
 const operationController = require('../controllers/operationController');
 
 router.get('/health', operationController.healthCheck);
+router.get('/filter', operationController.getFilteredOperations);
 router.post('/', operationController.createOperation);
 router.get('/', operationController.getAllOperations);
 router.get('/:id', operationController.getOperationById);

@@ -12,6 +12,8 @@ const TransactionSchema = new mongoose.Schema({
   currency: { type: String, required: true },
   status: { type: String, default: 'pending' },
   created_at: { type: Date, default: Date.now },
+  company: { type: String, required: function () { return this.type === 'BILL_PAYMENT'; } },
+  account_id: { type: String, required: function () { return this.type === 'BILL_PAYMENT'; } },
   additional_data: mongoose.Schema.Types.Mixed,
 });
 
