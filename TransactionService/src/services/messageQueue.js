@@ -19,7 +19,6 @@ const connectRabbitMQ = async (retries = 5, delay = 5000) => {
   }
 };
 
-// Función para publicar un mensaje en RabbitMQ
 const publishToQueue = (routingKey, message) => {
   if (!channel) {
     console.error('RabbitMQ channel is not initialized. Call connectRabbitMQ() first.');

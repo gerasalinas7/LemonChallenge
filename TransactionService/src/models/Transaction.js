@@ -12,7 +12,7 @@ const TransactionSchema = new mongoose.Schema({
   currency: { type: String, required: true },
   status: { type: String, default: 'pending' },
   created_at: { type: Date, default: Date.now },
-  additional_data: mongoose.Schema.Types.Mixed,  // Puede almacenar datos específicos para cada tipo de transacción
+  additional_data: mongoose.Schema.Types.Mixed,
 });
 
 module.exports = mongoose.model('Transaction', TransactionSchema);

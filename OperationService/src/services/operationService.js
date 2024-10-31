@@ -1,12 +1,10 @@
 const Operation = require('../models/Operation');
 
-// Crear una operación manualmente
 const createOperation = async (operationData) => {
   const operation = new Operation(operationData);
   return await operation.save();
 };
 
-// Crear una operación a partir de una transacción recibida
 const createOperationFromTransaction = async (transactionData) => {
   const operationData = {
     transaction_id: transactionData.transaction_id,

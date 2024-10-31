@@ -1,11 +1,11 @@
 const Transaction = require('../models/Transaction');
-const messageQueue = require('./messageQueue');
+const { publishToQueue } = require('./messageQueue');
+
 
 const createTransaction = async (transactionData) => {
   const transaction = new Transaction(transactionData);
   const savedTransaction = await transaction.save();
 
-  // Publicar evento en RabbitMQ
   const message = {
     transaction_id: savedTransaction._id,
     type: savedTransaction.type,
@@ -16,7 +16,7 @@ const createTransaction = async (transactionData) => {
     status: savedTransaction.status,
     additional_data: savedTransaction.additional_data,
   };
-  messageQueue.publish('transaction_created', message);
+  publishToQueue('transaction_created', message);
 
   return savedTransaction;
 };

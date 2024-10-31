@@ -53,7 +53,6 @@ exports.deleteUser = async (req, res) => {
   }
 };
 
-// Obtener transacciones de un usuario
 exports.getUserTransactions = async (req, res) => {
   try {
     const transactions = await externalService.getUserTransactions(req.params.userId);
@@ -63,7 +62,6 @@ exports.getUserTransactions = async (req, res) => {
   }
 };
 
-// Obtener operaciones de un usuario
 exports.getUserOperations = async (req, res) => {
   try {
     const operations = await externalService.getUserOperations(req.params.userId);

@@ -7,10 +7,7 @@ const operationRoutes = require('./routes/operationRoutes');
 const app = express();
 app.use(express.json());
 
-// Conexión a la base de datos
 connectDB();
-
-// Conectar a RabbitMQ y empezar a escuchar eventos de transacciones
 connectRabbitMQ();
 
 app.use('/api/operations', operationRoutes);
