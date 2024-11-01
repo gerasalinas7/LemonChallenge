@@ -73,8 +73,7 @@ RABBITMQ_URL=amqp://rabbitmq:5672
 ### UserService/.env
 ```bash
 MONGODB_URI=<Tu URI de MongoDB>
-TRANSACTION_SERVICE_URL=http://transaction-service:3000
-OPERATION_SERVICE_URL=http://operation-service:3000
+RABBITMQ_URL=amqp://rabbitmq:5672
 ```
 
 ## 🤖 Ejecución de la Aplicación
