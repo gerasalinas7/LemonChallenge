@@ -11,7 +11,7 @@ const createOperationFromTransaction = async (transactionData) => {
   if (!transaction_id || !type || !user_id || !amount || !currency) {
       throw new Error('Faltan campos obligatorios para crear la operación a partir de la transacción');
   }
-  
+
   const operationData = {
     transaction_id: transactionData.transaction_id,
     type: transactionData.type,
@@ -19,11 +19,13 @@ const createOperationFromTransaction = async (transactionData) => {
     amount: transactionData.amount,
     currency: transactionData.currency,
     created_at: transactionData.created_at,
-    data: transactionData.additional_data.map(item => ({
-        name: item.name,
-        value: String(item.value)
-      })),
-  };
+    data: Array.isArray(transactionData.additional_data)
+      ? transactionData.additional_data.map(item => ({
+          name: item.name,
+          value: String(item.value)
+        }))
+      : [],
+    };
 
   if (transactionData.type === 'BILL_PAYMENT') {
     operationData.company = transactionData.company;

@@ -8,7 +8,6 @@ router.get('/', userController.getAllUsers);
 router.get('/:id', userController.getUserById);
 router.put('/:id', userController.updateUser);
 router.delete('/:id', userController.deleteUser);
-router.get('/:userId/transactions', userController.getUserTransactions);
 router.get('/:userId/operations', userController.getUserOperations);
 router.get('/:userId/operations/filter', userController.getFilteredOperations);
 
