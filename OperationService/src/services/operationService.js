@@ -6,6 +6,12 @@ const createOperation = async (operationData) => {
 };
 
 const createOperationFromTransaction = async (transactionData) => {
+  const { transaction_id, type, user_id, amount, currency } = transactionData;
+
+  if (!transaction_id || !type || !user_id || !amount || !currency) {
+      throw new Error('Faltan campos obligatorios para crear la operación a partir de la transacción');
+  }
+  
   const operationData = {
     transaction_id: transactionData.transaction_id,
     type: transactionData.type,

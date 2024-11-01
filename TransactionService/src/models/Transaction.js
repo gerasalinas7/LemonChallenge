@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const TransactionSchema = new mongoose.Schema({
-  transaction_id: String,
   type: {
     type: String,
     enum: ['SWAP', 'DEPOSIT', 'WITHDRAWAL', 'BILL_PAYMENT'],

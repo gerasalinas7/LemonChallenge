@@ -150,3 +150,16 @@ curl -X GET "http://localhost:3003/api/users/12345/operations/filter?company=Ede
 ## ✨ Notas
 **RabbitMQ** debe estar en funcionamiento antes de ejecutar los servicios que lo utilizan.
 Asegúrate de que las variables de entorno estén correctamente configuradas para la conexión a **MongoDB** y **RabbitMQ**.
+
+## 🔐 Próximas Implementaciones
+
+1. **Autenticación y Autorización**:
+   - Implementar un sistema de autenticación basado en **JWT** (JSON Web Tokens) para asegurar que solo usuarios autorizados puedan acceder a los endpoints.
+   - Añadir niveles de autorización para controlar qué operaciones pueden realizar los diferentes tipos de usuarios (e.g., usuarios regulares vs. administradores).
+   
+2. **Pruebas Unitarias**:
+   - Escribir pruebas unitarias para todos los servicios principales (TransactionService, OperationService, UserService) utilizando **Jest** o **Mocha**.
+   - Asegurar que cada endpoint funcione como se espera y que las validaciones y manejo de errores estén cubiertos en las pruebas.
+   - Incluir pruebas para verificar el funcionamiento de la mensajería con **RabbitMQ** y la correcta respuesta de los servicios externos.
+
+Estas mejoras proporcionarán una mayor seguridad y confiabilidad a la aplicación, asegurando que solo usuarios autorizados puedan acceder a las funcionalidades y que el sistema esté cubierto ante errores y cambios futuros.
